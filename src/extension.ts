@@ -105,7 +105,7 @@ export class FormProvider implements vscode.HoverProvider {
 			//powfを^に置き換え
 			asciimathF = asciimathF.replace(/.powf/g, "^");
 			//.0を削除
-			asciimathF = asciimathF.replace(/.0(?!\d)/g, (match)=>{return'';});
+			asciimathF = asciimathF.replace(/\.0(?!\d)/g, (match)=>{return'';});
 			if(asciimathF)return {form: asciimathF, type:"AsciiMath"};
 		}
 		return{form:"", type:"none"};
