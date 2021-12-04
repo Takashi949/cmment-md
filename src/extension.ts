@@ -101,11 +101,11 @@ export class FormProvider implements vscode.HoverProvider {
 		if(TeXF)return {form:TeXF[1], type:"TeX"};
 		else {
 			//下付き字を_に置き換え
-			let asciimathF = form.replace(/(?<![\+\-\^\*\(\.\s])\d/g, (match) =>{return '_' + match;});
+			let asciimathF = form.replace(/(?<![\+\-\^\*\(\.\s\)\/])\d/g, (match) =>{return '_' + match;});
 			//powfを^に置き換え
 			asciimathF = asciimathF.replace(/.powf/g, "^");
 			//.0を削除
-			asciimathF = asciimathF.replace(/.0(?!\d)/g, (match)=>{console.log(match);return'';});
+			asciimathF = asciimathF.replace(/.0(?!\d)/g, (match)=>{return'';});
 			if(asciimathF)return {form: asciimathF, type:"AsciiMath"};
 		}
 		return{form:"", type:"none"};
