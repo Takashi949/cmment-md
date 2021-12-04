@@ -20,13 +20,6 @@ This extension contributes the following settings:
 
 ## Known Issues
 
-
-## Release Notes
-### 1.0.0
-Initial release
-### 1.0.1
-)と/\に_が付くのを修正
-
 -----------------------------------------------------------------------------------------------------------
 
 
