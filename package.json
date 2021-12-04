@@ -10,16 +10,11 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:cmment-md.helloWorld",
     "onLanguage:rust"
   ],
   "main": "./out/extension.js",
   "contributes": {
     "commands": [
-      {
-        "command": "cmment-md.helloWorld",
-        "title": "Hello World"
-      },
       {
         "command": "cmment-md.show",
         "title": "やあ"
@@ -44,14 +39,11 @@
     "@vscode/test-electron": "^1.6.2",
     "eslint": "^8.1.0",
     "glob": "^7.1.7",
-    "katex": "^0.15.1",
-    "mathjax": "^3.2.0",
     "mathjax-node": "^2.1.1",
     "mocha": "^9.1.3",
     "typescript": "^4.4.4"
   },
   "dependencies": {
-    "jquery": "^3.6.0",
-    "mathjax-node-svg2png": "^2.0.0"
+    "jquery": "^3.6.0"
   }
 }
