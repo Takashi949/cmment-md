@@ -25,7 +25,7 @@ export function deactivate() {}
 
 export class FormProvider implements vscode.HoverProvider {
 	async provideHover(document :vscode.TextDocument, pos: vscode.Position, token:vscode.CancellationToken){
-		const form = this.isTex(document, pos);
+		const form = this.getFormula(document, pos);
 		if(form.type == "none"){
 			//console.log('no match nothing to show');
 			return Promise.reject('no match');
@@ -50,7 +50,7 @@ export class FormProvider implements vscode.HoverProvider {
 	 * @param pos provideHoverのをそのまま入れる
 	 * @returns 
 	 */
-	private isTex(doc : vscode.TextDocument, pos: vscode.Position): {form:string, type:string}{
+	private getFormula(doc : vscode.TextDocument, pos: vscode.Position): {form:string, type:string}{
 		const findRange = 5;
 		const online = doc.lineAt(pos.line).text
 		const foof = new RegExp(/fo(.+?)of/);
@@ -68,7 +68,8 @@ export class FormProvider implements vscode.HoverProvider {
 		));
 		const bf = (before.match(fo) ||[]).length - (before.match(of) || []).length;
 		const af = (after.match(of) ||[]).length - (after.match(fo) ||[]).length;
-		//console.log(bf, af);
+		let formtext;
+
 		//一行の形式が見つかった場合
 		if(onlineForm){
 			return this.typeChecker(onlineForm[1]);		
@@ -76,24 +77,24 @@ export class FormProvider implements vscode.HoverProvider {
 		//前にfoがあまっている && 後にofが1つ余っている
 		else if(bf == 1 && af == 1){
 			//前後が数式
-			let s =(before + online + after).split('\n').join('').split('\r').join('');
-			const form = foof.exec(s);
-			if(form)return this.typeChecker(form[1]);
+			formtext = (before + online + after).split('\n').join('').split('\r').join('');
 		}
 		//前にfoがあまっている && 同じ行にofがある
 		else if(bf == 1 && (online.match("of") ||[]).length == 1){
 			//前
-			let s =(before + online).split('\n').join('').split('\r').join('');
-			const form = foof.exec(s);
-			if(form)return this.typeChecker(form[1]);
+			formtext = (before + online).split('\n').join('').split('\r').join('');
 		}
 		//後にofがあまっている && 同じ行にfoがある
 		else if(af == 1 && (online.match("fo") ||[]).length == 1){
 			//後
-			let s =(online + after).split('\n').join('').split('\r').join('');
-			const form = foof.exec(s);
+			formtext = (online + after).split('\n').join('').split('\r').join('');
+		}
+
+		if(formtext){
+			const form = foof.exec(formtext);
 			if(form)return this.typeChecker(form[1]);
 		}
+		//式じゃなかったら
 		return {form: "", type:"none"};
 	}
 
