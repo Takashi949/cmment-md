@@ -5,7 +5,6 @@ import * as vscode from 'vscode';
 
 const katex = require('katex');
 const mathjx = require('mathjax-node');
-//const mathjx =require("mathjax-node-svg2png")
 const COMMAND = 'cmment-md.form';
 const keyword = 'showFormura';
 // this method is called when your extension is activated
