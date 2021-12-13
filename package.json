@@ -2,7 +2,7 @@
   "name": "cmment-md",
   "displayName": "cmment_md",
   "description": "md in comment",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "engines": {
     "vscode": "^1.62.0"
   },

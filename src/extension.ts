@@ -56,10 +56,20 @@ export class FormProvider implements vscode.HoverProvider {
 
 		const fo = new RegExp(/fo(.+?)/g);
 		const of = new RegExp(/(.+?)of/g);
-		const before = doc.getText(new vscode.Range(
-			new vscode.Position(pos.line - findRange, 0),
-			new vscode.Position(pos.line, 0)
+		
+		let before;
+		if (pos.line - findRange < 0){
+			before = doc.getText(new vscode.Range(
+				new vscode.Position(0, 0),
+				new vscode.Position(pos.line, 0)
+			));
+		}else{
+			before = doc.getText(new vscode.Range(
+				new vscode.Position(pos.line - findRange, 0),
+				new vscode.Position(pos.line, 0)
 		));
+		}
+
 		const after = doc.getText(new vscode.Range(
 			new vscode.Position(pos.line + 1, 0),
 			new vscode.Position(pos.line + findRange, 0)
